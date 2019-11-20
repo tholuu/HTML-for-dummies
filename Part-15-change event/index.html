@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>part-15-change evnet</title>
+</head>
+
+<body>
+    <h1>Change event</h1>
+    <span>Age:</span>
+    <select id="select-student">
+        <option>All</option>
+        <option>22</option>;
+        <option>23</option>;
+        <option>24</option>;
+    </select>
+    
+    <table id="studen-table"></table>
+
+    <script>
+        var students = [
+            { name: "ken", age: 24},
+            { name: "huy", age: 23},
+            { name: "nam", age: 22},
+            { name: "dang", age: 22},
+            { name: "kien", age: 24},
+            { name: "hai", age: 23}
+        ] 
+        var selectStudent = document.getElementById("select-student");
+        selectStudent.addEventListener("change", filterStudent)
+        console.log("---", typeof(selectStudent.value))
+        function filterStudent() {
+            if (selectStudent.value !== 'All') {
+                var newStudent = students.filter( function(student) {
+                    return student.age === parseInt(selectStudent.value);
+                })
+                render(newStudent);
+            } else {
+                render(students);
+            }
+        }
+
+        function render(students) {
+            var studentTable = document.getElementById("studen-table");
+            var content = students.map( function(student) {
+                return "<tr><td>" + student.name + "</td><td>" + student.age + "</td></tr>"
+            })
+            studentTable.innerHTML = content.join('');
+        }
+        render(students);
+    </script>
+</body>
+
+</html>
